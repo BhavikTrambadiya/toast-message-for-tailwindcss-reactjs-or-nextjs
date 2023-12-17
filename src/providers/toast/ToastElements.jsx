@@ -1,41 +1,39 @@
-import CheckIcon from "@/components/icons/CheckIcon";
-import ExclamationCircleIcon from "@/components/icons/ExclamationCircleIcon";
-import ExclamationIcon from "@/components/icons/ExclamationIcon";
-import InformationCircleIcon from "@/components/icons/InformationCircleIcon";
 import XIcon from "@/components/icons/XIcon";
+import {useEffect, useState} from "react";
 
-export default function ToastElements({id, type, component, close}) {
+export default function ToastElements({toast, close}) {
 
-    return (<div
-        className={"relative w-full lg:min-w-lg h-full max-w-fit bg-white p-2 flex justify-start items-start text-black rounded-lg shadow-xl gap-4"}>
-        {(() => {
-            switch (type) {
-                case 'success':
-                    return (<span className="bg-green-100 p-1 rounded-lg">
-                        <CheckIcon className="stroke-green-500 h-6 w-6"/>
-                        </span>)
-                case 'error':
-                    return (<span className="bg-red-100 p-1 rounded-lg">
-                        <ExclamationCircleIcon className="stroke-red-500 h-6 w-6"/>
-                        </span>)
-                case 'warning':
-                    return (<span className="bg-yellow-100 p-1 rounded-lg">
-                        <ExclamationIcon className="stroke-yellow-500 h-6 w-6"/>
-                        </span>)
-                case 'info':
-                    return (<span className="bg-blue-100 p-1 rounded-lg">
-                        <InformationCircleIcon className="stroke-blue-500 h-6 w-6"/>
-                        </span>)
-                default:
-                    return (<></>)
-            }
-        })()}
-        <div className={"grow"}>
-            {component}
-        </div>
-        <button type={"button"} onClick={() => close(id)}
-                className={"p-1 ml-2 rounded-lg bg-gray-50 text-gray-800/60"}>
-            <XIcon className={"h-6 w-6 text-gray-500"}/>
-        </button>
-    </div>)
+    const [progress, setProgress] = useState(100);
+
+    useEffect(() => {
+        const progressInterval = setInterval(() => {
+            setProgress((prevProgress) => prevProgress - 1);
+        }, (toast.timeout / 100));
+
+        setTimeout(() => close(toast.id), (toast.timeout + 100));
+
+        return () => {
+            clearInterval(progressInterval);
+        };
+    }, []);
+
+    return (
+        <div
+            className={"relative w-[calc(100vw-24px)] lg:w-full lg:min-w-lg h-full overflow-hidden max-w-fit rounded-lg shadow-xl " + toast.backgroundClasses}>
+            <div
+                className={"p-2 flex justify-start items-start text-black gap-4"}>
+                {toast?.iconElement ?? ''}
+                <div className={"grow mt-0.5 dark:text-white"}>
+                    {toast.component}
+                </div>
+                <button type={"button"} onClick={() => close(toast.id)}
+                        className={"p-1 ml-2 rounded-lg bg-gray-50 dark:bg-gray-800"}>
+                    <XIcon className={"h-6 w-6 text-gray-500 dark:text-gray-300"}/>
+                </button>
+            </div>
+            {toast.progress ? <div className={"relative w-full h-1 overflow-hidden " + toast.backgroundClasses}>
+                        <span style={{width: `${progress}%`}}
+                              className={"absolute h-full duration-300 ease-linear " + toast.progressBarClassName}></span>
+            </div> : <></>}
+        </div>)
 }
