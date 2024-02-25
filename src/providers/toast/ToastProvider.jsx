@@ -2,12 +2,7 @@
 import ToastContext from "@/providers/toast/ToastService";
 import {useState} from "react";
 import {
-    BOTTOM_CENTER,
-    BOTTOM_LEFT,
-    BOTTOM_RIGHT,
-    TOP_CENTER,
-    TOP_LEFT,
-    TOP_RIGHT
+    BOTTOM_CENTER, BOTTOM_LEFT, BOTTOM_RIGHT, DEFAULT, TOP_CENTER, TOP_LEFT, TOP_RIGHT
 } from "@/providers/toast/enums/ToastPositionEnum";
 import ToastElements from "@/providers/toast/ToastElements";
 import ToastTypeEnum, {SUCCESS} from "@/providers/toast/enums/ToastTypeEnum";
@@ -15,7 +10,7 @@ import ToastTypeEnum, {SUCCESS} from "@/providers/toast/enums/ToastTypeEnum";
 export default function ToastProvider({children}) {
     const initialObject = {
         type: SUCCESS?.type,
-        position: TOP_RIGHT,
+        position: DEFAULT,
         timeout: 5000,
         component: "",
         progress: true,

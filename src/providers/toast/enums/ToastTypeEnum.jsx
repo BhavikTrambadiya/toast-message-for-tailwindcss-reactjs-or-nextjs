@@ -1,7 +1,7 @@
-import CheckIcon from "@/components/icons/CheckIcon";
-import ExclamationCircleIcon from "@/components/icons/ExclamationCircleIcon";
-import ExclamationIcon from "@/components/icons/ExclamationIcon";
-import InformationCircleIcon from "@/components/icons/InformationCircleIcon";
+import CheckIcon from "@/providers/toast/icons/CheckIcon";
+import ExclamationCircleIcon from "@/providers/toast/icons/ExclamationCircleIcon";
+import ExclamationIcon from "@/providers/toast/icons/ExclamationIcon";
+import InformationCircleIcon from "@/providers/toast/icons/InformationCircleIcon";
 
 export const SUCCESS = {
     type: "success",

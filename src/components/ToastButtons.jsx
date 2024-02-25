@@ -56,7 +56,7 @@ export default function ToastButtons() {
     }
 
     return (<div
-            className="flex w-full items-end justify-center from-white via-white dark:from-black dark:via-black lg:h-auto lg:w-auto bg-none">
+            className="flex w-full items-end justify-center from-white via-white dark:from-black dark:via-black lg:h-auto lg:w-auto bg-none gap-6">
             <button type={"button"} onClick={() => handleSuccess()}
                     className="w-full border border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:from-inherit lg:w-auto rounded-xl bg-gray-200 lg:p-4 dark:bg-zinc-800/30">
                 Success
